@@ -51,10 +51,29 @@ public class MainActivity extends AppCompatActivity {
     }
     public EditText editText1;
     public EditText editText2;
+    public Button memRecBt;
+    public Button memCleBt;
+    public TextView textView2;
     public void esconderTeclado() {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(editText1.getWindowToken(), 0);
         imm.hideSoftInputFromWindow(editText2.getWindowToken(), 0);
+    }
+    //Função resposavel por ativar ou desativar os botões memRec e memCle quando a memoria for igual a 0
+    public void onOffBtmemoria(){
+        if(memoria != 0){
+            memRecBt.setEnabled(true);
+            memRecBt.setTextColor(getResources().getColor(R.color.corAtivado));
+            memCleBt.setEnabled(true);
+            memCleBt.setTextColor(getResources().getColor(R.color.corAtivado));
+        }
+        if(memoria == 0){
+            memRecBt.setEnabled(false);
+            memRecBt.setTextColor(getResources().getColor(R.color.corDesativado));
+            memCleBt.setEnabled(false);
+            memCleBt.setTextColor(getResources().getColor(R.color.corDesativado));
+            textView2.setText("");
+        }
     }
 
     @Override
@@ -69,8 +88,8 @@ public class MainActivity extends AppCompatActivity {
 
         Button memPlusBt = (Button) this.findViewById(R.id.memPlusBt);
         Button memSubBt = (Button) this.findViewById(R.id.memSubBt);
-        Button memRecBt = (Button) this.findViewById(R.id.memRecBt);
-        Button memCleBt = (Button) this.findViewById(R.id.memCleBt);
+        memRecBt = (Button) this.findViewById(R.id.memRecBt);
+        memCleBt = (Button) this.findViewById(R.id.memCleBt);
 
         Button btnFinalizar = (Button) this.findViewById(R.id.btnFinalizar);
 
@@ -80,10 +99,9 @@ public class MainActivity extends AppCompatActivity {
         editText2.setInputType(InputType.TYPE_CLASS_NUMBER);
 
         TextView textView1 = (TextView) this.findViewById(R.id.textView1);
-        TextView textView2 = (TextView) this.findViewById(R.id.textView2);
+        textView2 = (TextView) this.findViewById(R.id.textView2);
 
         //Operações
-        //soma
         plusBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
                  }
             }
         });
-        //Subtração
         subBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,7 +134,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        //Divisão
         dividerBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -138,7 +154,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        //Multiplicação
         multipBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -157,75 +172,39 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //Memoria
-        //Acrescentar na memoria
         memPlusBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 esconderTeclado();
-
                 memoria += resultado;
                 textView2.setText(String.valueOf(memoria));
-                if(memoria != 0){
-                    memRecBt.setEnabled(true);
-                    memRecBt.setTextColor(getResources().getColor(R.color.corAtivado));
-                    memCleBt.setEnabled(true);
-                    memCleBt.setTextColor(getResources().getColor(R.color.corAtivado));
-                }
-                if(memoria == 0){
-                    memRecBt.setEnabled(false);
-                    memRecBt.setTextColor(getResources().getColor(R.color.corDesativado));
-                    memCleBt.setEnabled(false);
-                    memCleBt.setTextColor(getResources().getColor(R.color.corDesativado));
-                    textView2.setText("");
-                }
+                onOffBtmemoria();
             }
         });
         memSubBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 esconderTeclado();
-
                 memoria -= resultado;
                 textView2.setText(String.valueOf(memoria));
-                if(memoria != 0){
-                    memRecBt.setEnabled(true);
-                    memRecBt.setTextColor(getResources().getColor(R.color.corAtivado));
-                    memCleBt.setEnabled(true);
-                    memCleBt.setTextColor(getResources().getColor(R.color.corAtivado));
-                }
-                if(memoria == 0){
-                    memRecBt.setEnabled(false);
-                    memRecBt.setTextColor(getResources().getColor(R.color.corDesativado));
-                    memCleBt.setEnabled(false);
-                    memCleBt.setTextColor(getResources().getColor(R.color.corDesativado));
-                    textView2.setText("");
-                }
+                onOffBtmemoria();
             }
         });
-
         memRecBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 esconderTeclado();
-
                 editText1.setText(String.valueOf(memoria));
+                onOffBtmemoria();
             }
         });
-
         memCleBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 esconderTeclado();
-
                 memoria = 0;
                 textView2.setText("");
-                if(memoria == 0){
-                    memRecBt.setEnabled(false);
-                    memRecBt.setTextColor(getResources().getColor(R.color.corDesativado));
-                    memCleBt.setEnabled(false);
-                    memCleBt.setTextColor(getResources().getColor(R.color.corDesativado));
-                    textView2.setText("");
-                }
+                onOffBtmemoria();
             }
         });
 
