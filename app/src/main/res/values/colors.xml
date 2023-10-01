@@ -2,4 +2,6 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="corAtivado">#9DCBF0</color>
+    <color name="corDesativado">#354551</color>
 </resources>
