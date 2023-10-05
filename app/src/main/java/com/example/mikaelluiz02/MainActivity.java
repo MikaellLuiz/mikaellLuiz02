@@ -1,9 +1,8 @@
 package com.example.mikaelluiz02;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
-import android.content.res.ColorStateList;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -60,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         imm.hideSoftInputFromWindow(editText2.getWindowToken(), 0);
     }
     //Função resposavel por ativar ou desativar os botões memRec e memCle quando a memoria for igual a 0
-    public void onOffBtmemoria(){
+    public void onOffBtMemoria(){
         if(memoria != 0){
             memRecBt.setEnabled(true);
             memRecBt.setTextColor(getResources().getColor(R.color.corAtivado));
@@ -76,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
         Button memSubBt = (Button) this.findViewById(R.id.memSubBt);
         memRecBt = (Button) this.findViewById(R.id.memRecBt);
         memCleBt = (Button) this.findViewById(R.id.memCleBt);
+
+        Button MXbt = (Button) this.findViewById(R.id.MXbt);
 
         Button btnFinalizar = (Button) this.findViewById(R.id.btnFinalizar);
 
@@ -178,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
                 esconderTeclado();
                 memoria += resultado;
                 textView2.setText(String.valueOf(memoria));
-                onOffBtmemoria();
+                onOffBtMemoria();
             }
         });
         memSubBt.setOnClickListener(new View.OnClickListener() {
@@ -187,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
                 esconderTeclado();
                 memoria -= resultado;
                 textView2.setText(String.valueOf(memoria));
-                onOffBtmemoria();
+                onOffBtMemoria();
             }
         });
         memRecBt.setOnClickListener(new View.OnClickListener() {
@@ -195,7 +197,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 esconderTeclado();
                 editText1.setText(String.valueOf(memoria));
-                onOffBtmemoria();
             }
         });
         memCleBt.setOnClickListener(new View.OnClickListener() {
@@ -204,7 +205,17 @@ public class MainActivity extends AppCompatActivity {
                 esconderTeclado();
                 memoria = 0;
                 textView2.setText("");
-                onOffBtmemoria();
+                onOffBtMemoria();
+            }
+        });
+
+        //botão MX
+        MXbt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, memoryActivity.class);
+                intent.putExtra("memoria", memoria);
+                startActivity(intent);
             }
         });
 
